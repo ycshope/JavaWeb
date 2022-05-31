@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+    <!-- 属性注入 -->
+    <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
+
+        <property name="age" value="10"></property>
+        <!-- 注入空值 -->
+        <property name="name">
+            <null></null>
+        </property>
+
+        <!--   特殊值处理:1.转义     -->
+        <property name="address" value="&lt;China&gt;"></property>
+
+        <!--   特殊值处理:1.CDTA     -->
+        <property name="edu">
+            <value><![CDATA[<<Hogwarts>>]]></value>
+        </property>
+
+    </bean>
+</beans>

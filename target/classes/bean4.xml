@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+
+    <!-- 注入对象
+        ref:引用的对象   -->
+    <!--   外部bean -->
+    <bean id="setPropertiesDemo02" class="com.kali.SetPropertiesDemo02">
+        <property name="obj" ref="setPropertiesDemo01"></property>
+    </bean>
+    <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
+        <property name="age" value="10"></property>
+        <property name="name">
+            <null></null>
+        </property>
+        <property name="address" value="&lt;USA&gt;"></property>
+        <property name="edu">
+            <value><![CDATA[<Hogwarts>]]></value>
+        </property>
+    </bean>
+
+    <!-- 内部bean  -->
+    <bean id="setPropertiesDemo021" class="com.kali.SetPropertiesDemo02">
+        <property name="obj">
+            <bean id="obj01" class="com.kali.SetPropertiesDemo01">
+                <property name="age" value="10"></property>
+                <property name="name">
+                    <null></null>
+                </property>
+                <property name="address" value="&lt;USB&gt;"></property>
+                <property name="edu">
+                    <value><![CDATA[<Hogwarts>]]></value>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--  级联赋值  -->
+    <bean id="setPropertiesDemo022" class="com.kali.SetPropertiesDemo02">
+        <property name="obj" ref="setPropertiesDemo01"></property>
+        <property name="obj.age" value="101"></property>
+        <property name="obj.name" value="Max"></property>
+        <property name="obj.address" value="&lt;USC&gt;"></property>
+        <property name="obj.edu" value="kali"></property>
+    </bean>
+</beans>

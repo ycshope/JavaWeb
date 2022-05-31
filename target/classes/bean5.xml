@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <bean id="setCollections" class="com.kali.SetCollections">
+        <!--        注入数组类型-->
+        <property name="arr">
+            <array>
+                <value>neo</value>
+                <value>kali</value>
+            </array>
+            <!--            注入列表类型-->
+        </property>
+        <property name="list">
+            <list>
+                <value>papazi</value>
+                <value>pipimei</value>
+            </list>
+        </property>
+        <!--            注入map类型-->
+        <property name="maps">
+            <map>
+                <entry key="JAVA" value="java"></entry>
+                <entry key="PHP" value="php"></entry>
+            </map>
+        </property>
+        <!--        set类型注入-->
+        <property name="sets">
+            <set>
+                <value>MySQL</value>
+                <value>Redis</value>
+            </set>
+        </property>
+    </bean>
+
+</beans>
