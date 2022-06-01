@@ -3,7 +3,7 @@ package com.kali;
 public class ConstructorArgDemo01 {
     private String name;
 
-    public ConstructorArgDemo01(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

@@ -109,6 +109,8 @@ public class Main {
 
     （1）基于xml配置文件方式；（2）基于注解
 
+    ### 基于xml配置文件方式
+
      **基于XML配置文件创建对象**
 
     ```java
@@ -299,6 +301,49 @@ d) 入空值和特殊符号
              </bean>
          </beans>
          ```
+
+**IOC 操作 Bean 管理（FactoryBean）**
+
+ 1、Spring 有两种类型 bean，一种普通 bean，另外一种工厂 bean（FactoryBean）
+
+ 2、普通 bean：在配置文件中定义 bean 类型就是返回类型
+
+ 3、工厂 bean：在配置文件定义 bean 类型可以和返回类型不一样 第一步 创建类，让这个类作为工厂 bean，实现接口 FactoryBean 第二步 实现接口里面的方法，在实现的方法中定义返回的 bean 类型
+（工厂bean配置类型和返回类型可以不一样）
+
+```java
+// 1.创建类,让这个类作为工厂bean,实现接口FactoryBean
+public class FactoryBeanDemo01 implements FactoryBean <ConstructorArgDemo01>{
+
+    // 2.实现接口里面的方法,在实现的方法中定义返回的bean类型
+    @Override
+    public ConstructorArgDemo01 getObject() throws Exception {
+        ConstructorArgDemo01 constructorArgDemo01 = new ConstructorArgDemo01();
+        constructorArgDemo01.setName("abc");
+        return constructorArgDemo01;
+    }
+
+    @Override
+    public Class<?> getObjectType() {
+        return null;
+    }
+}
+```
+
+```xml
+#bean7
+<bean id="factoryBeanDemo01" class="com.kali.FactoryBeanDemo01"></bean>
+```
+
+```java
+    public static void testFactoryBean06() {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean7.xml");
+        ConstructorArgDemo01 factoryBeanDemo01 = ctx.getBean("factoryBeanDemo01", ConstructorArgDemo01.class);  //返回类型和定义类型不是定义的bean类型
+        System.out.println(factoryBeanDemo01.getName());
+    }
+```
+
+
 
 # Aop
 

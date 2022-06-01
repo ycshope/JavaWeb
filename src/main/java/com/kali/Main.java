@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        testSetObjColltions05();
+        testFactoryBean06();
 
     }
 
@@ -33,14 +33,14 @@ public class Main {
     }
 
     @Test
-    public static void testConstructorArgDemo(){
+    public static void testConstructorArgDemo() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean3.xml");
         ConstructorArgDemo01 constructorArgDemo01 = ctx.getBean("constructorArgDemo01", ConstructorArgDemo01.class);
 
         System.out.println(constructorArgDemo01.getName());
     }
 
-    public static void testSetObjAsProperties(){
+    public static void testSetObjAsProperties() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean4.xml");
         SetPropertiesDemo02 constructorArgDemo02 = ctx.getBean("setPropertiesDemo02", SetPropertiesDemo02.class);
 
@@ -48,7 +48,7 @@ public class Main {
 
     }
 
-    public static void testSetObjAsProperties02(){
+    public static void testSetObjAsProperties02() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean4.xml");
         SetPropertiesDemo02 constructorArgDemo02 = ctx.getBean("setPropertiesDemo021", SetPropertiesDemo02.class);
 
@@ -57,7 +57,7 @@ public class Main {
     }
 
     // xml bean:设置对象作为属性
-    public static void testSetObjAsProperties03(){
+    public static void testSetObjAsProperties03() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean4.xml");
         SetPropertiesDemo02 constructorArgDemo02 = ctx.getBean("setPropertiesDemo022", SetPropertiesDemo02.class);
 
@@ -66,7 +66,7 @@ public class Main {
     }
 
     // xml bean:设置集合类型作为属性
-    public static void testSetColASProperties04(){
+    public static void testSetColASProperties04() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean5.xml");
         SetCollections setCollections = ctx.getBean("setCollections", SetCollections.class);
 
@@ -74,7 +74,7 @@ public class Main {
     }
 
     // xml bean:创建Obj集合类型作为属性
-    public static void testSetObjColltions05(){
+    public static void testSetObjColltions05() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean6.xml");
         SetObjColltions colorCollection = ctx.getBean("colorCollection", SetObjColltions.class);
 
@@ -82,5 +82,11 @@ public class Main {
 
     }
 
+    // FactoryBean: 返回类型和定义类型可以不一样
+    public static void testFactoryBean06() {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean7.xml");
+        ConstructorArgDemo01 factoryBeanDemo01 = ctx.getBean("factoryBeanDemo01", ConstructorArgDemo01.class);  //返回类型和定义类型不是定义的bean类型
+        System.out.println(factoryBeanDemo01.getName());
+    }
 
 }
