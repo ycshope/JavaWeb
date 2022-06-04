@@ -7,7 +7,7 @@
     <!-- bean definitions here -->
 
     <!-- 有参数构造   -->
-    <bean id="constructorArgDemo01" class="com.kali.ConstructorArgDemo01">
+    <bean id="specialCharsAndNull" class="com.kali.xml.propInj.specialCharsAndNull.specialCharsAndNull">
         <constructor-arg name="name" value="Hello"></constructor-arg>
     </bean>
 </beans>

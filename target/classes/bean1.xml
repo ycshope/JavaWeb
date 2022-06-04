@@ -8,5 +8,5 @@
 
     <!-- 基于xml创建对象   -->
     <!-- id：唯一标识，class：类全路径   -->
-    <bean id="hellospring" class="com.kali.SpringDemo01"></bean>
+    <bean id="hellospring" class="com.kali.xml.objCre.ConstructorWithOutArg"></bean>
 </beans>

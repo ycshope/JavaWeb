@@ -7,7 +7,7 @@
 
     <!-- bean definitions here -->
     <!--  默认是单实例(地址一样), scope="prototype"是多实例 -->
-    <bean id="domainDemo01" class="com.kali.DomainDemo01" scope="prototype">
+    <bean id="domain" class="com.kali.xml.propInj.domain.Domain" scope="prototype">
         <property name="name" value="hello"></property>
     </bean>
 </beans>

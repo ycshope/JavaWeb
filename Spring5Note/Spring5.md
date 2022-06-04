@@ -19,14 +19,14 @@ public class SpringDemo01 {
 
 ```xml
 #resources/bean1.xml
-<?xml version="1.0" encoding="UTF-8"?>
+		<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- bean definitions here -->
-    <bean id="hellospring" class="com.kali.SpringDemo01"></bean>
+	<!-- bean definitions here -->
+	<bean id="hellospring" class="com.kali.xml.objCre.ConstructorWithOutArg"></bean>
 </beans>
 ```
 
@@ -35,27 +35,30 @@ public class SpringDemo01 {
 ```java
 package com.kali;
 
+import ConstructorWithOutArg;
+import com.kali.xml.objCre.SpringDemo;
+import com.kali.xml.objCre.SpringDemo01;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
-    public static void main(String[] args) {
-        testHello();
+	public static void main(String[] args) {
+		testHello();
 
-    }
+	}
 
-    @Test
-    public static void testHello() {
-        //1.加载spring配置文件
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("bean1.xml");
+	@Test
+	public static void testHello() {
+		//1.加载spring配置文件
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("bean1.xml");
 
-        //2.获取配置创建的对象
-        SpringDemo01 hellospring = ctx.getBean("hellospring", SpringDemo01.class);
+		//2.获取配置创建的对象
+		ConstructorWithOutArg hellospring = ctx.getBean("hellospring", ConstructorWithOutArg.class);
 
-        System.out.println(hellospring);
-        hellospring.test();
-    }
+		System.out.println(hellospring);
+		hellospring.test();
+	}
 
 }
 ```
@@ -115,7 +118,8 @@ public class Main {
 ##### 对象创建
 
 ```xml
-<bean id="hellospring" class="com.kali.SpringDemo01"></bean>
+
+<bean id="hellospring" class="com.kali.xml.objCre.ConstructorWithOutArg"></bean>
 ```
 
 ##### 属性注入
@@ -126,9 +130,9 @@ public class Main {
 
 ```xml
 #bean2.xml
-<bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
-        <property name="age" value="10"></property>
-        <property name="name" value="Hello"></property>
+<bean id="innerBean" class="com.kali.xml.propInj.innerBean.InnerBean">
+	<property name="age" value="10"></property>
+	<property name="name" value="Hello"></property>
 </bean>
 ```
 
@@ -136,8 +140,8 @@ public class Main {
 
 ```xml
 <!-- 有参数构造   -->
-<bean id="constructorArgDemo01" class="com.kali.ConstructorArgDemo01">
-    <constructor-arg name="name" value="Hello"></constructor-arg>
+<bean id="specialCharsAndNull" class="com.kali.xml.propInj.specialCharsAndNull.specialCharsAndNull">
+	<constructor-arg name="name" value="Hello"></constructor-arg>
 </bean>
 ```
 
@@ -146,39 +150,40 @@ public class Main {
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p" 
-       xsi:schemaLocation="
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- bean definitions here -->
+	<!-- bean definitions here -->
 
-    <!-- p空间注入   -->
-    <bean id="pSpace" class="com.kali.SetPropertiesDemo01" p:name="pSpace" p:age="101">
-    </bean>
+	<!-- p空间注入   -->
+	<bean id="pSpace" class="com.kali.xml.propInj.innerBean.InnerBean" p:name="pSpace" p:age="101">
+	</bean>
 </beans>
 ```
 
-**d) 入空值和特殊符号**
+**d) 空值和特殊符号**
 
 ```xml
-    <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
 
-        <property name="age" value="10"></property>
-        <!-- 注入空值 -->
-        <property name="name">
-            <null></null>
-        </property>
+<bean id="innerBean" class="com.kali.xml.propInj.innerBean.InnerBean">
 
-        <!--   特殊值处理:1.转义     -->
-        <property name="address" value="&lt;China&gt;"></property>
+	<property name="age" value="10"></property>
+	<!-- 注入空值 -->
+	<property name="name">
+		<null></null>
+	</property>
 
-        <!--   特殊值处理:1.CDTA     -->
-        <property name="edu">
-            <value><![CDATA[<Hogwarts>]]></value>
-        </property>
+	<!--   特殊值处理:1.转义     -->
+	<property name="address" value="&lt;China&gt;"></property>
 
-    </bean>
+	<!--   特殊值处理:1.CDTA     -->
+	<property name="edu">
+		<value><![CDATA[<Hogwarts>]]></value>
+	</property>
+
+</bean>
 ```
 
 **e) 外部bean**
@@ -186,30 +191,30 @@ public class Main {
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- bean definitions here -->
+	<!-- bean definitions here -->
 
-    <!-- 注入对象
+	<!-- 注入对象
         ref:引用的对象   -->
-    <bean id="setPropertiesDemo02" class="com.kali.SetPropertiesDemo02">
-        <property name="obj" ref="setPropertiesDemo01"></property>
+	<bean id="setPropertiesDemo02" class="com.kali.xml.propInj.refBean.RefBean">
+		<property name="obj" ref="innerBean"></property>
 
-    </bean>
-    <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
+	</bean>
+	<bean id="innerBean" class="com.kali.xml.propInj.innerBean.InnerBean">
 
-        <property name="age" value="10"></property>
-        <property name="name">
-            <null></null>
-        </property>
-        <property name="address" value="&lt;USA&gt;"></property>
-        <property name="edu">
-            <value><![CDATA[<Hogwarts>]]></value>
-        </property>
+		<property name="age" value="10"></property>
+		<property name="name">
+			<null></null>
+		</property>
+		<property name="address" value="&lt;USA&gt;"></property>
+		<property name="edu">
+			<value><![CDATA[<Hogwarts>]]></value>
+		</property>
 
-    </bean>
+	</bean>
 </beans>
 ```
 
@@ -217,64 +222,65 @@ public class Main {
 
 ```xml
 <!-- 内部bean  -->
-    <bean id="setPropertiesDemo021" class="com.kali.SetPropertiesDemo02">
-        <property name="obj">
-            <bean id="obj" class="com.kali.SetPropertiesDemo01">
-                <property name="age" value="10"></property>
-                <property name="name">
-                    <null></null>
-                </property>
-                <property name="address" value="&lt;USB&gt;"></property>
-                <property name="edu">
-                    <value><![CDATA[<Hogwarts>]]></value>
-                </property>
-            </bean>
-        </property>
-    </bean>
+<bean id="setPropertiesDemo021" class="com.kali.xml.propInj.refBean.RefBean">
+	<property name="obj">
+		<bean id="obj" class="com.kali.xml.propInj.innerBean.InnerBean">
+			<property name="age" value="10"></property>
+			<property name="name">
+				<null></null>
+			</property>
+			<property name="address" value="&lt;USB&gt;"></property>
+			<property name="edu">
+				<value><![CDATA[<Hogwarts>]]></value>
+			</property>
+		</bean>
+	</property>
+</bean>
 
- <!--  级联赋值  -->
-    <bean id="setPropertiesDemo022" class="com.kali.SetPropertiesDemo02">
-        <!--  需要外部定义setPropertiesDemo01  -->
-        <property name="obj" ref="setPropertiesDemo01"></property>
-        <property name="obj.age" value="101"></property>
-        <property name="obj.name" value="Max"></property>
-        <property name="obj.address" value="&lt;USC&gt;"></property>
-        <property name="obj.edu" value="kali"></property>
-    </bean>
+		<!--  级联赋值  -->
+<bean id="setPropertiesDemo022" class="com.kali.xml.propInj.refBean.RefBean">
+<!--  需要外部定义setPropertiesDemo01  -->
+<property name="obj" ref="innerBean"></property>
+<property name="obj.age" value="101"></property>
+<property name="obj.name" value="Max"></property>
+<property name="obj.address" value="&lt;USC&gt;"></property>
+<property name="obj.edu" value="kali"></property>
+</bean>
 ```
 
 **g) 注入集合属性**
 
 ```xml
-<bean id="setCollections" class="com.kali.SetCollections">
-    <!--        注入数组类型-->
-    <property name="arr">
-        <array>
-            <value>neo</value>
-            <value>kali</value>
-        </array>
-        <!--            注入列表类型-->
-    </property>
-    <property name="list">
-        <list>
-            <value>papazi</value>
-            <value>pipimei</value>
-        </list>
-    </property>
-    <!--            注入map类型-->
-    <property name="maps">
-        <map>
-            <entry key="JAVA" value="java"></entry>
-            <entry key="PHP" value="php"></entry>
-        </map>
-    </property>
-    <!--        set类型注入-->
-    <property name="sets">
-        <set>
-            <value>MySQL</value>
-            <value>Redis</value>
-        </set>
-    </property>
+
+<bean id="collections" class="com.kali.xml.propInj.colltions.Collections">
+	<!--        注入数组类型-->
+	<property name="arr">
+		<array>
+			<value>neo</value>
+			<value>kali</value>
+		</array>
+		<!--            注入列表类型-->
+	</property>
+	<property name="list">
+		<list>
+			<value>papazi</value>
+			<value>pipimei</value>
+		</list>
+	</property>
+	<!--            注入map类型-->
+	<property name="maps">
+		<map>
+			<entry key="JAVA" value="java"></entry>
+			<entry key="PHP" value="php"></entry>
+		</map>
+	</property>
+	<!--        set类型注入-->
+	<property name="sets">
+		<set>
+			<value>MySQL</value>
+			<value>Redis</value>
+		</set>
+	</property>
 </bean>
 ```
 
@@ -283,25 +289,25 @@ public class Main {
 ```xml
 <!-- S1:在spring配置文件中引入名称空间util-->
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <!-- bean definitions here -->
-<!--S2:用util标签完成list集合注入提取-->
-<!--  1.提取list集合类属性注入  -->
-    <util:list id="colorList">
-        <value>Red</value>
-        <value>Yellow</value>
-        <value>Blue</value>
-    </util:list>
+	<!-- bean definitions here -->
+	<!--S2:用util标签完成list集合注入提取-->
+	<!--  1.提取list集合类属性注入  -->
+	<util:list id="colorList">
+		<value>Red</value>
+		<value>Yellow</value>
+		<value>Blue</value>
+	</util:list>
 
-<!--  2.提取list集合类型属性注入使用  -->
-    <bean id="colorCollection" class="com.kali.SetObjColltions">
-        <property name="lists" ref="colorList"></property>
-    </bean>
+	<!--  2.提取list集合类型属性注入使用  -->
+	<bean id="colorCollection" class="com.kali.xml.propInj.objColltions.ObjColltions">
+		<property name="lists" ref="colorList"></property>
+	</bean>
 </beans>
 ```
 
@@ -321,9 +327,9 @@ public class FactoryBeanDemo01 implements FactoryBean <ConstructorArgDemo01>{
     // 2.实现接口里面的方法,在实现的方法中定义返回的bean类型
     @Override
     public ConstructorArgDemo01 getObject() throws Exception {
-        ConstructorArgDemo01 constructorArgDemo01 = new ConstructorArgDemo01();
-        constructorArgDemo01.setName("abc");
-        return constructorArgDemo01;
+        ConstructorArgDemo01 specialCharsAndNull = new ConstructorArgDemo01();
+        specialCharsAndNull.setName("abc");
+        return specialCharsAndNull;
     }
 
     @Override
@@ -335,7 +341,7 @@ public class FactoryBeanDemo01 implements FactoryBean <ConstructorArgDemo01>{
 
 ```xml
 #bean7
-<bean id="factoryBeanDemo01" class="com.kali.FactoryBeanDemo01"></bean>
+<bean id="factoryBeanDemo01" class="com.kali.xml.propInj.factoryBean.FactoryBean"></bean>
 ```
 
 ```java
@@ -356,9 +362,9 @@ public class FactoryBeanDemo01 implements FactoryBean <ConstructorArgDemo01>{
 
 ```xml
  <!--  默认是单实例(地址一样), scope="prototype"是多实例 -->
-    <bean id="domainDemo01" class="com.kali.DomainDemo01" scope="prototype">
-        <property name="name" value="hello"></property>
-    </bean>
+<bean id="domain" class="com.kali.xml.propInj.domain.Domain" scope="prototype">
+	<property name="name" value="hello"></property>
+</bean>
 ```
 
 
@@ -429,16 +435,15 @@ public static void testBeanLiveSpan(){
     }
 ```
 
-
-
 ```xml
     <!--  bean的生命周期:初始化执行方法,销毁方法 -->
-    <bean id="beanLiveSpan" class="com.kali.BeanLiveSpan" init-method="initMethod" destroy-method="destroyMethod">
-        <property name="name" value="hello"></property>
-    </bean>
+<bean id="beanLiveSpan" class="com.kali.xml.propInj.liveSpan.BeanLiveSpan" init-method="initMethod"
+	  destroy-method="destroyMethod">
+	<property name="name" value="hello"></property>
+</bean>
 
-    <!--  配置后置处理器  -->
-    <bean id="beanPost" class="com.kali.BeanPost"></bean>
+		<!--  配置后置处理器  -->
+<bean id="beanPost" class="com.kali.xml.propInj.liveSpan.BeanPost"></bean>
 ```
 
 ###### 自动管理
@@ -472,9 +477,9 @@ public class AutoWriteDemo01 {
         方式2:
             byType,根据属性类型注入,但是需要注意class中有两个相同类型时会有歧义导致无法注入
      -->
-    <!--    <bean id="autoWriteDemo01" class="com.kali.AutoWriteDemo01" autowire="byName"></bean>-->
-    <bean id="autoWriteDemo01" class="com.kali.AutoWriteDemo01" autowire="byType"></bean>
-    <bean id="demo01" class="com.kali.DomainDemo01"></bean>
+<!--    <bean id="autoWrite" class="com.kali.xml.propInj.autowired.AutoWrite" autowire="byName"></bean>-->
+<bean id="autoWrite" class="com.kali.xml.propInj.autowired.AutoWrite" autowire="byType"></bean>
+<bean id="demo01" class="com.kali.xml.propInj.domain.Domain"></bean>
 ```
 
 

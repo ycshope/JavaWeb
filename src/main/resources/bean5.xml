@@ -5,7 +5,7 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- bean definitions here -->
-    <bean id="setCollections" class="com.kali.SetCollections">
+    <bean id="collections" class="com.kali.xml.propInj.colltions.Collections">
         <!--        注入数组类型-->
         <property name="arr">
             <array>

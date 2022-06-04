@@ -11,7 +11,7 @@
         方式2:
             byType,根据属性类型注入,但是需要注意class中有两个相同类型时会有歧义导致无法注入
      -->
-    <!--    <bean id="autoWriteDemo01" class="com.kali.AutoWriteDemo01" autowire="byName"></bean>-->
-    <bean id="autoWriteDemo01" class="com.kali.AutoWriteDemo01" autowire="byType"></bean>
-    <bean id="demo01" class="com.kali.DomainDemo01"></bean>
+    <!--    <bean id="autoWrite" class="com.kali.xml.propInj.autowired.AutoWrite" autowire="byName"></bean>-->
+    <bean id="autoWrite" class="com.kali.xml.propInj.autowired.AutoWrite" autowire="byType"></bean>
+    <bean id="demo01" class="com.kali.xml.propInj.domain.Domain"></bean>
 </beans>

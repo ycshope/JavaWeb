@@ -7,10 +7,10 @@
 
     <!-- bean definitions here -->
     <!--  bean的生命周期:初始化执行方法,销毁方法 -->
-    <bean id="beanLiveSpan" class="com.kali.BeanLiveSpan" init-method="initMethod" destroy-method="destroyMethod">
+    <bean id="beanLiveSpan" class="com.kali.xml.propInj.liveSpan.BeanLiveSpan" init-method="initMethod" destroy-method="destroyMethod">
         <property name="name" value="hello"></property>
     </bean>
 
     <!--  配置后置处理器  -->
-    <bean id="beanPost" class="com.kali.BeanPost"></bean>
+    <bean id="beanPost" class="com.kali.xml.propInj.liveSpan.BeanPost"></bean>
 </beans>

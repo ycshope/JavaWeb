@@ -9,10 +9,10 @@
     <!-- 注入对象
         ref:引用的对象   -->
     <!--   外部bean -->
-    <bean id="setPropertiesDemo02" class="com.kali.SetPropertiesDemo02">
-        <property name="obj" ref="setPropertiesDemo01"></property>
+    <bean id="setPropertiesDemo02" class="com.kali.xml.propInj.refBean.RefBean">
+        <property name="obj" ref="innerBean"></property>
     </bean>
-    <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
+    <bean id="innerBean" class="com.kali.xml.propInj.innerBean.InnerBean">
         <property name="age" value="10"></property>
         <property name="name">
             <null></null>
@@ -24,9 +24,9 @@
     </bean>
 
     <!-- 内部bean  -->
-    <bean id="setPropertiesDemo021" class="com.kali.SetPropertiesDemo02">
+    <bean id="setPropertiesDemo021" class="com.kali.xml.propInj.refBean.RefBean">
         <property name="obj">
-            <bean id="obj01" class="com.kali.SetPropertiesDemo01">
+            <bean id="obj01" class="com.kali.xml.propInj.innerBean.InnerBean">
                 <property name="age" value="10"></property>
                 <property name="name">
                     <null></null>
@@ -40,8 +40,8 @@
     </bean>
 
     <!--  级联赋值  -->
-    <bean id="setPropertiesDemo022" class="com.kali.SetPropertiesDemo02">
-        <property name="obj" ref="setPropertiesDemo01"></property>
+    <bean id="setPropertiesDemo022" class="com.kali.xml.propInj.refBean.RefBean">
+        <property name="obj" ref="innerBean"></property>
         <property name="obj.age" value="101"></property>
         <property name="obj.name" value="Max"></property>
         <property name="obj.address" value="&lt;USC&gt;"></property>

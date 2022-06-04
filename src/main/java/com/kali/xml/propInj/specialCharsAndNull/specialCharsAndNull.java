@@ -1,6 +1,6 @@
-package com.kali;
+package com.kali.xml.propInj.specialCharsAndNull;
 
-public class ConstructorArgDemo01 {
+public class specialCharsAndNull {
     private String name;
 
     public void setName(String name) {

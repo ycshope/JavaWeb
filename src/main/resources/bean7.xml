@@ -9,5 +9,5 @@
 
     <!-- bean definitions here -->
     <!--  返回类型是ConstructorArgDemo01  -->
-    <bean id="factoryBeanDemo01" class="com.kali.FactoryBeanDemo01"></bean>
+    <bean id="factoryBeanDemo01" class="com.kali.xml.propInj.factoryBean.FactoryBean"></bean>
 </beans>

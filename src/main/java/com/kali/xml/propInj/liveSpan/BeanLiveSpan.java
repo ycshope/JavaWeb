@@ -1,4 +1,4 @@
-package com.kali;
+package com.kali.xml.propInj.liveSpan;
 
 public class BeanLiveSpan {
 

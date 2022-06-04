@@ -1,6 +1,6 @@
-package com.kali;
+package com.kali.xml.propInj.innerBean;
 
-public class SetPropertiesDemo01 {
+public class InnerBean {
     private String name;
     private int age;
     private String address;

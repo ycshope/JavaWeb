@@ -1,10 +1,10 @@
-package com.kali;
+package com.kali.xml.propInj.colltions;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class SetCollections {
+public class Collections {
     //注入多种datatype
     private String[] arr;
     private List<String> list;

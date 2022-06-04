@@ -8,16 +8,16 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- bean definitions here -->
-<!--S2:用util标签完成list集合注入提取-->
-<!--  1.提取list集合类属性注入  -->
+    <!--S2:用util标签完成list集合注入提取-->
+    <!--  1.提取list集合类属性注入  -->
     <util:list id="colorList">
         <value>Red</value>
         <value>Yellow</value>
         <value>Blue</value>
     </util:list>
 
-<!--  2.提取list集合类型属性注入使用  -->
-    <bean id="colorCollection" class="com.kali.SetObjColltions">
+    <!--  2.提取list集合类型属性注入使用  -->
+    <bean id="colorCollection" class="com.kali.xml.propInj.objColltions.ObjColltions">
         <property name="lists" ref="colorList"></property>
     </bean>
 </beans>

@@ -1,6 +1,6 @@
-package com.kali;
+package com.kali.xml.propInj.domain;
 
-public class DomainDemo01 {
+public class Domain {
     private String name;
 
     public String getName() {

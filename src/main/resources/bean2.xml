@@ -7,7 +7,7 @@
     <!-- bean definitions here -->
 
     <!-- 属性注入 -->
-    <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
+    <bean id="innerBean" class="com.kali.xml.propInj.innerBean.InnerBean">
 
         <property name="age" value="10"></property>
         <!-- 注入空值 -->
