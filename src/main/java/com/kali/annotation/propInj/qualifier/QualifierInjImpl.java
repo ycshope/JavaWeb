@@ -1,4 +1,4 @@
-package com.kali.annotation.propInj;
+package com.kali.annotation.propInj.qualifier;
 
 import org.springframework.stereotype.Component;
 

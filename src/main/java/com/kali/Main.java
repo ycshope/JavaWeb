@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-        testFactoryBean06();
+        testAutoWrite();
 
     }
 
@@ -84,9 +84,35 @@ public class Main {
 
     // FactoryBean: 返回类型和定义类型可以不一样
     public static void testFactoryBean06() {
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean7.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("bean7.xml");
         ConstructorArgDemo01 factoryBeanDemo01 = ctx.getBean("factoryBeanDemo01", ConstructorArgDemo01.class);  //返回类型和定义类型不是定义的bean类型
         System.out.println(factoryBeanDemo01.getName());
     }
 
+    // bean 作用域:
+    public static void testDomain01(){
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("bean8.xml");
+        DomainDemo01 domainDemo01 = ctx.getBean("domainDemo01", DomainDemo01.class);
+        DomainDemo01 domainDemo02 = ctx.getBean("domainDemo01", DomainDemo01.class);
+        System.out.println(domainDemo01);
+        System.out.println(domainDemo02);
+    }
+
+    // bean 的生命周期
+    public static void testBeanLiveSpan(){
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean9.xml");
+        BeanLiveSpan beanLiveSpan = ctx.getBean("beanLiveSpan", BeanLiveSpan.class);
+        System.out.println("第四步:创建bean实例");
+        System.out.println(beanLiveSpan);
+
+        //手动销毁bean实例
+        ctx.close();
+    }
+
+    // bean 的自动装配
+    public static void testAutoWrite(){
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("bean11.xml");
+        AutoWriteDemo01 autoWriteDemo01 = ctx.getBean("autoWriteDemo01", AutoWriteDemo01.class);
+        System.out.println(autoWriteDemo01);
+    }
 }

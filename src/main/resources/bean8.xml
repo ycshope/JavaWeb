@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- S1:在spring配置文件中引入名称空间util-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <!--  默认是单实例(地址一样), scope="prototype"是多实例 -->
+    <bean id="domainDemo01" class="com.kali.DomainDemo01" scope="prototype">
+        <property name="name" value="hello"></property>
+    </bean>
+</beans>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--把properties属性文件引入到spring配置文件中-引入context名称空间-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--   自动装配:
+        设置属性autowire,实现自动装配
+        方式1:
+            byName,注入值的bean的id值和属性名一样(属性和id均为为demo01)
+        方式2:
+            byType,根据属性类型注入,但是需要注意class中有两个相同类型时会有歧义导致无法注入
+     -->
+    <!--    <bean id="autoWriteDemo01" class="com.kali.AutoWriteDemo01" autowire="byName"></bean>-->
+    <bean id="autoWriteDemo01" class="com.kali.AutoWriteDemo01" autowire="byType"></bean>
+    <bean id="demo01" class="com.kali.DomainDemo01"></bean>
+</beans>
