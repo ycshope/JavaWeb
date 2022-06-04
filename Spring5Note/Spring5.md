@@ -108,20 +108,21 @@ public class Main {
  2. bean管理操作的两种方式
 
     （1）基于xml配置文件方式；（2）基于注解
-
-### 基于xml配置文件方式实现对象创建
-
-     **基于XML配置文件创建对象**
     
-    ```java
-    <bean id="hellospring" class="com.kali.SpringDemo01"></bean>
-    ```
 
-### 基于xml配置文件方式实现属性注入
+#### 基于xml配置文件方式
+
+##### 对象创建
+
+```xml
+<bean id="hellospring" class="com.kali.SpringDemo01"></bean>
+```
+
+##### 属性注入
 
 基于XML方式注入属性（DI：依赖注入（注入属性））
 
-a) spring方式注入
+**a) spring方式注入**
 
 ```xml
 #bean2.xml
@@ -131,7 +132,7 @@ a) spring方式注入
 </bean>
 ```
 
-​		b) 有参构造
+**b) 有参构造**
 
 ```xml
 <!-- 有参数构造   -->
@@ -140,7 +141,7 @@ a) spring方式注入
 </bean>
 ```
 
-​		c) p名称空间注入（了解即可）
+**c) p名称空间注入（了解即可）**
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -158,7 +159,7 @@ a) spring方式注入
 </beans>
 ```
 
-d) 入空值和特殊符号
+**d) 入空值和特殊符号**
 
 ```xml
     <bean id="setPropertiesDemo01" class="com.kali.SetPropertiesDemo01">
@@ -180,7 +181,7 @@ d) 入空值和特殊符号
     </bean>
 ```
 
-注入属性-外部bean
+**e) 外部bean**
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -212,7 +213,7 @@ d) 入空值和特殊符号
 </beans>
 ```
 
-基于XML方式注入内部bean和级联赋值
+**f) 内部bean和级联赋值**
 
 ```xml
 <!-- 内部bean  -->
@@ -242,7 +243,7 @@ d) 入空值和特殊符号
     </bean>
 ```
 
-xml 注入集合属性
+**g) 注入集合属性**
 
 ```xml
 <bean id="setCollections" class="com.kali.SetCollections">
@@ -277,7 +278,7 @@ xml 注入集合属性
 </bean>
 ```
 
-在集合里面设置对象类型值
+**h) 在集合里面设置对象类型值**
 
 ```xml
 <!-- S1:在spring配置文件中引入名称空间util-->
@@ -304,7 +305,7 @@ xml 注入集合属性
 </beans>
 ```
 
-#### FactoryBean
+###### FactoryBean
 
  1、Spring 有两种类型 bean，一种普通 bean，另外一种工厂 bean（FactoryBean）
 
@@ -345,7 +346,7 @@ public class FactoryBeanDemo01 implements FactoryBean <ConstructorArgDemo01>{
     }
 ```
 
-#### **bean 作用域**
+###### **bean 作用域**
 
 在 Spring 里面，默认情况下，bean 是单实例对象，下面进行作用域设置：
 
@@ -368,7 +369,7 @@ public class FactoryBeanDemo01 implements FactoryBean <ConstructorArgDemo01>{
 
  b）设置 scope 值是 singleton 时候，加载 spring 配置文件时候就会创建单实例对象 ；设置 scope 值是 prototype 时候，<u>不是在加载 spring 配置文件时候创建对象，在调用 getBean 方法时候创建多实例对象</u>
 
-#### bean生命周期
+###### bean生命周期
 
 1、生命周期 ：从对象创建到对象销毁的过程
 
@@ -440,7 +441,7 @@ public static void testBeanLiveSpan(){
     <bean id="beanPost" class="com.kali.BeanPost"></bean>
 ```
 
-#### 自动管理
+###### 自动管理
 
 就是自动填充值
 
@@ -478,7 +479,7 @@ public class AutoWriteDemo01 {
 
 
 
-#### 外部属性文件
+###### 外部属性文件
 
 **引入外部属性文件配置数据库连接池**
 
@@ -506,9 +507,9 @@ prop.password=root
     </bean>
 ```
 
-### **基于注解方式实现对象创建**
+#### 基于注解方式
 
-#### 概念
+##### 概念
 
 1. 简化xml配置
 
@@ -518,22 +519,19 @@ prop.password=root
 
 4. Spring 针对 Bean 管理中创建对象提供注解
 
-   
+基于注解方式实现对象创建
 
 
 下面四个注解功能是一样的，都可以用来创建 bean 实例
 
 ```java
-（1）@Component
-
-（2）@Service
-
-（3）@Controller
-
-（4）@Repository
+@Component
+@Service
+@Controller
+@Repository
 ```
 
-#### 创建对象
+##### 创建对象
 
 第一步 引入依赖 （引入**spring-aop jar包**）
 
@@ -581,7 +579,7 @@ public class AnnotationDemo01 {
 }
 ```
 
-#### 开启组件扫描细节配置
+###### 开启组件扫描细节配置
 
 ```xml
 <!-- 开启组件扫描细节配置   -->
@@ -603,7 +601,7 @@ public class AnnotationDemo01 {
     </context:component-scan>
 ```
 
-### 基于注解方式实现属性注入
+##### 属性注入
 
 常见的三种注入类型	
 
@@ -615,7 +613,7 @@ public class AnnotationDemo01 {
 
 （4）@Value：注入普通类型属性
 
-#### @Autowired
+###### @Autowired
 
 第一步 把 service 和 dao 对象创建，在 service 和 autowiredInjImp类添加创建对象注解
 
@@ -653,7 +651,7 @@ public class AutowiredService {
 
 
 
-#### @Qualifier
+###### @Qualifier
 
 根据名称进行注入，这个@Qualifier 注解的使用，和上面@Autowired 一起使用
 
@@ -683,7 +681,7 @@ public class QualifierService {
 
 
 
-#### @Resource
+###### @Resource
 
 可以根据类型注入，也可以根据名称注入（它属于javax包下的注解，不推荐使用！）
 
@@ -711,7 +709,7 @@ public class ResourceInjService {
 }
 ```
 
-#### @Value
+###### @Value
 
 注入普通类型属性
 
@@ -728,7 +726,7 @@ public class ValueInjImp {
 }
 ```
 
-### 完全注解开发
+##### 完全注解开发
 
 （1）创建配置类，替代 xml 配置文件
 
