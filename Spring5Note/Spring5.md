@@ -763,6 +763,201 @@ public class FullAnnotationTestMain {
 
 # AOP
 
+## 概念
+
+### 什么是AOP？
+
+（1）[面向切面编程](https://so.csdn.net/so/search?q=面向切面编程&spm=1001.2101.3001.7020)（方面），利用 AOP 可以对业务逻辑的各个部分进行隔离，从而使得 业务逻辑各部分之间的<u>耦合度降低</u>，提高程序的<u>可重用性(拓展性)</u>，同时提高了开发的效率。
+
+ （2）通俗描述：<u>不通过修改源代码方式，在主干功能里面添加新功能</u>
+
+ （3）使用登录例子说明 AOP
+
+![whatIsAop](images\Snipaste_2022-06-05_12-18-13.png)
+
+### 底层原理
+
+#### AOP底层使用动态代理
+
+有2种情况的动态代理
+
+(1) 有接口情况使用JDK代理
+
+![AOP-jdk](images\Snipaste_2022-06-05_12-31-43.png)
+
+(2) 没有接口的情况使用CGLIB动态代理
+
+![AOP-CGLB](images\Snipaste_2022-06-05_12-32-43.png)
+
+#### 使用JDK动态代理
+
+使用 JDK 动态代理，使用 Proxy 类里面的方法创建代理对象
+
+**方法有三个参数：**
+`ClassLoder`，类加载器
+`类<?>[ ] interfaces`，增强方法所在的类，这个类实现的接口，支持多个接口
+`InvocationHandler`，实现这个接口 InvocationHandler，创建代理对象，写增强的部分
+
+```java
+public interface UserDao {
+    int add(int a, int b);
+
+    void update(String id);
+}
+```
+
+
+
+```java
+public class UserDaoImpl implements UserDao {
+    @Override
+    public int add(int a, int b) {
+        System.out.println("add running...");
+        return a + b;
+    }
+
+    @Override
+    public void update(String id) {
+        System.out.println("update running..." + id);
+    }
+}
+
+```
+
+```java
+public class JdkProxyMain {
+    @Test
+    public void jdkProxyMain() {
+        // 动态代理
+        //创建接口实现类代理对象
+        Class[] interfaces = {UserDao.class};
+        UserDaoImpl userDao = new UserDaoImpl();
+        /*
+         * arg1:类加载器
+         * arg2:增强方法所在的类,这个类实现的接口(支持多个接口)
+         * arg3:实现这个接口InvocationHandler,创建代理对象,写增强的部分
+         * */
+        UserDao dao = (UserDao) Proxy.newProxyInstance(JdkProxyMain.class.getClassLoader(), interfaces, new UserDaoProxy(userDao));
+        System.out.println("result=" + dao.add(1, 2));
+    }
+}
+
+/*
+ * 创建代理对象
+ * */
+class UserDaoProxy implements InvocationHandler {
+    private Object object;
+
+    //1. 创建的是谁的对象,就要把谁传递过来
+    public UserDaoProxy(Object object) {
+        this.object = object;
+    }
+
+    /*
+     * 增强的逻辑
+     * */
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        // 方法之前
+        System.out.println("method running before" + method.getName() + ":convert args" + Arrays.toString(args));
+
+        // 被增加的方法执行
+        Object invoke = method.invoke(object, args);
+
+        // 方法之后
+        System.out.println("after method running " + object);
+        return invoke;
+    }
+}
+```
+
+#### AOP（术语）
+
+ a）连接点：类里面哪些方法可以被增强，这些方法称为连接点
+
+ b）切入点：实际被真正增强的方法称为切入点
+
+ c）通知（增强）：实际增强的逻辑部分称为通知，且分为以下五种类型：
+
+​		1）前置通知 
+
+​	 	2）后置通知 
+
+​		3）环绕通知 :前后都有被增强的逻辑
+
+​		4）异常通知 
+
+​		5）最终通知:类似try ..final,最后一定会执行的增强逻辑
+
+ d）切面：把通知应用到切入点过程（主要是一个动作）
+
+## AOP操作
+
+基于Java的主要AOP实现有：`AspectJ` `Spring AOP` `JBoss AOP`
+
+### 准备工作
+
+1. Spring 框架一般都是基于 AspectJ 实现 AOP 操作
+
+AspectJ 不是 Spring 组成部分，独立 AOP 框架，一般把 AspectJ 和 Spirng 框架一起使用，进行 AOP 操作
+
+2. 基于 AspectJ 实现 AOP 操作
+
+- 基于 xml配置文件实现
+- 基于注解方式实现（使用）
+
+3. 工程中，引入Spring AOP相关的依赖
+
+   ```xml
+    <dependency>
+               <groupId>org.aspectj</groupId>
+               <artifactId>aspectjtools</artifactId>
+               <version>1.9.5</version>
+           </dependency>
+   
+           <dependency>
+               <groupId>aopalliance</groupId>
+               <artifactId>aopalliance</artifactId>
+               <version>1.0</version>
+           </dependency>
+   
+           <dependency>
+               <groupId>org.aspectj</groupId>
+               <artifactId>aspectjweaver</artifactId>
+               <version>1.9.0</version>
+           </dependency>
+   
+           <dependency>
+               <groupId>cglib</groupId>
+               <artifactId>cglib</artifactId>
+               <version>3.3.0</version>
+           </dependency>
+   ```
+
+   
+
+4. 切入点表达式（ Point Cut Expression）
+
+​	**切入点表达式作用**：知道对哪个类里面的哪个方法进行增强
+​	**语法结构**：
+
+``` java
+execution([权限修饰符] [返回类型] [类全路径] [方法名] ([参数列表]))
+```
+
+​	**举例**:
+
+```java
+举例 1：对 com.micah.dao.BookDao 类里面的 add 进行增强 execution(* com.atguigu.dao.BookDao.add(..))
+举例 2：对 com.micah.dao.BookDao 类里面的所有的方法进行增强execution(* com.atguigu.dao.BookDao.* (..))
+举例 3：对 com.atguigu.dao 包里面所有类，类里面所有方法进行增强execution(* com.micah.dao.*.* (..))
+
+```
+
+### AspectJ注解
+
+### AspectJ配置文件
+
 # JdbcTemplate
 
 # 事务管理
