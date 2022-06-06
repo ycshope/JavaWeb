@@ -909,16 +909,16 @@ AspectJ 不是 Spring 组成部分，独立 AOP 框架，一般把 AspectJ 和 S
 3. 工程中，引入Spring AOP相关的依赖
 
    ```xml
-    <dependency>
-               <groupId>org.aspectj</groupId>
-               <artifactId>aspectjtools</artifactId>
-               <version>1.9.5</version>
+   <dependency>
+               <groupId>org.springframework</groupId>
+               <artifactId>spring-aspects</artifactId>
+               <version>${spring-version}</version>
            </dependency>
    
            <dependency>
-               <groupId>aopalliance</groupId>
-               <artifactId>aopalliance</artifactId>
-               <version>1.0</version>
+               <groupId>org.aspectj</groupId>
+               <artifactId>aspectjrt</artifactId>
+               <version>1.9.4</version>
            </dependency>
    
            <dependency>
@@ -926,16 +926,10 @@ AspectJ 不是 Spring 组成部分，独立 AOP 框架，一般把 AspectJ 和 S
                <artifactId>aspectjweaver</artifactId>
                <version>1.9.0</version>
            </dependency>
-   
-           <dependency>
-               <groupId>cglib</groupId>
-               <artifactId>cglib</artifactId>
-               <version>3.3.0</version>
-           </dependency>
    ```
-
    
-
+   
+   
 4. 切入点表达式（ Point Cut Expression）
 
 ​	**切入点表达式作用**：知道对哪个类里面的哪个方法进行增强

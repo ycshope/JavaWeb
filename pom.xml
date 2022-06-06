@@ -67,26 +67,22 @@
 
         <!--    设置aop    -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${spring-version}</version>
         </dependency>
+
         <!--  aspectj  -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
-            <version>5.2.7.RELEASE</version>
+            <version>${spring-version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.aspectj</groupId>
-            <artifactId>aspectjtools</artifactId>
-            <version>1.9.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>aopalliance</groupId>
-            <artifactId>aopalliance</artifactId>
-            <version>1.0</version>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.4</version>
         </dependency>
 
         <dependency>
@@ -95,11 +91,6 @@
             <version>1.9.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>3.3.0</version>
-        </dependency>
     </dependencies>
 
 </project>
