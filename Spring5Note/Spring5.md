@@ -950,6 +950,139 @@ execution([权限修饰符] [返回类型] [类全路径] [方法名] ([参数�
 
 ### AspectJ注解
 
+  (1) 创建类，在类里面定义方法，添加@Component注解，创建对象
+
+```java
+@Component
+public class User {
+    /**
+     * 前置通知
+     */
+    public void add() {
+        System.out.println("add...");
+    }
+
+    public void ecp() {
+        int a = 10 / 0;
+        System.out.println("ecp ...");
+
+    }
+}
+```
+
+（2）创建增强类（编写增强逻辑），在增强类里面，创建方法，让不同方法代表不同通知类型
+
+```java
+//增强的类
+@Component
+@Aspect //生成代理对象
+public class UserProxy {
+
+    //相同切入点抽取---相当于封装了切入方法
+//    @Pointcut(value = "execution(* com.kali.aop.aspectj.annotation.User.add(..))")
+    @Pointcut(value = "execution(* com.kali.aop.aspectj.annotation.User.*(..))")
+    public void pointCut(){
+
+    }
+
+    //前置通知
+    //@Before注解表示作为前置执行
+    @Before(value = "pointCut()")
+    public void before() {
+        System.out.println("before...");
+    }
+
+    /*
+     * 最终通知,不管是否成功都会执行
+     * */
+    @After(value = "pointCut()")
+    public void after() {
+        System.out.println("After...");
+    }
+
+    /*
+     * 后置返回通知
+     * */
+    @AfterReturning(value = "pointCut()")
+    public void afterReturning() {
+        System.out.println("AfterReturning...");
+    }
+
+    /*
+     * 后置异常通知
+     * */
+    @AfterThrowing(value = "pointCut()")
+    public void afterThrowing() {
+        System.out.println("AfterThrowing...");
+    }
+
+    /*
+     * 环绕通知
+     * */
+    @Around(value = "pointCut()")
+    public void around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        System.out.println("Around before...");
+        proceedingJoinPoint.proceed();
+        System.out.println("Around after...");
+
+    }
+}
+
+```
+
+（3）添加项目xml配置文件
+
+```xml
+<!--3、进行通知的配置-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 开启注解扫描 -->
+    <context:component-scan base-package="com.kali.aop.aspectj"></context:component-scan>
+
+    <!-- 开启Aspect生成代理对象-->
+    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+</beans>
+```
+
+（4）有多个增强类多同一个方法进行增强，设置增强类优先级
+在增强类上面添加注解 @Order(数字类型值)，数字类型值越小优先级越高
+
+```java
+//多个优先级的情况,可以用Order进行排序
+//Order优先级越小值越高
+@Component
+@Aspect
+@Order(1)
+public class PersonProxy {
+    @Before(value = "execution(* com.kali.aop.aspectj.annotation.User.add(..))")
+    public void beforeRunning(){
+        System.out.println("Person Before...");
+    }
+}
+```
+
+（5）测试以及结果：
+
+```
+Person Before...
+Around before...
+before...
+add...
+Around after...
+After...
+AfterReturning...
+==========
+Around before...
+before...
+After...
+AfterThrowing...
+```
+
 ### AspectJ配置文件
 
 # JdbcTemplate

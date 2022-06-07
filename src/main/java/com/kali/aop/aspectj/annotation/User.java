@@ -1,4 +1,4 @@
-package com.kali.aop.aspectj;
+package com.kali.aop.aspectj.annotation;
 
 
 import org.springframework.stereotype.Component;
@@ -10,5 +10,11 @@ public class User {
      */
     public void add() {
         System.out.println("add...");
+    }
+
+    public void ecp() {
+        int a = 10 / 0;
+        System.out.println("ecp ...");
+
     }
 }
