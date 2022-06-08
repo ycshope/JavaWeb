@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--3、进行通知的配置-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 1. 创建对象 -->
+    <bean id="book" class="com.kali.aop.aspectj.xml.Book"></bean>
+    <bean id="bookProxy" class="com.kali.aop.aspectj.xml.BookProxy"></bean>
+
+    <!--  2. 配置aop增强  -->
+    <aop:config>
+        <!--   2.1 定义切入点,确定对被增强的类     -->
+        <aop:pointcut id="p" expression="execution(* com.kali.aop.aspectj.xml.Book.buy(..))"/>
+        <!-- 2.2 配置切面:增强类 -->
+        <aop:aspect ref="bookProxy">
+            <!-- 2.3 增强作用在具体的方法上:用bookProxy的before方法作用在p方法之前 -->
+            <aop:before method="before" pointcut-ref="p"></aop:before>
+        </aop:aspect>
+    </aop:config>
+</beans>
