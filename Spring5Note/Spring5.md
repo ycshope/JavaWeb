@@ -1085,6 +1085,101 @@ AfterThrowing...
 
 ### AspectJ配置文件
 
+1、创建类,在类里面定义方法
+
+```java
+public class Book {
+    public void buy(){
+        System.out.println("buy...");
+    }
+
+```
+
+
+
+2、创建增强类(编写增强逻辑)
+
+```java
+public class BookProxy {
+    public void before(){
+        System.out.println("before...");
+    }
+}
+
+```
+
+
+
+3、进行通知的配置
+
+```xml
+ <!-- 1. 创建对象 -->
+    <bean id="book" class="com.kali.aop.aspectj.xml.Book"></bean>
+    <bean id="bookProxy" class="com.kali.aop.aspectj.xml.BookProxy"></bean>
+
+    <!--  2. 配置aop增强  -->
+    <aop:config>
+        <!--   2.1 定义切入点,确定对被增强的类     -->
+        <aop:pointcut id="p" expression="execution(* com.kali.aop.aspectj.xml.Book.buy(..))"/>
+        <!-- 2.2 配置切面:增强类 -->
+        <aop:aspect ref="bookProxy">
+            <!-- 2.3 增强作用在具体的方法上:用bookProxy的before方法作用在p方法之前 -->
+            <aop:before method="before" pointcut-ref="p"></aop:before>
+        </aop:aspect>
+    </aop:config>
+```
+
+### 完全注解开发
+
+1、创建类,在类里面定义方法
+
+```java
+@Component
+public class Base {
+    public void say(){
+        System.out.println("base...");
+    }
+}
+
+```
+
+
+
+2、创建增强类(编写增强逻辑)
+
+```java
+@Component
+@Aspect //生成代理对象
+public class BaseProxy {
+    @Pointcut(value = "execution(* com.kali.aop.aspectj.fullannotation.Base.say(..))")
+    public void pointCut() {
+    }
+
+    @Around(value = "pointCut()")
+    public void around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        System.out.println("Around before...");
+        proceedingJoinPoint.proceed();
+        System.out.println("Around after...");
+    }
+}
+```
+
+
+
+3、创建配置类
+
+```java
+//创建配置类,不需要创建xml配置文件
+@Configuration //作为配置类,代替xml配置文件
+@ComponentScan(basePackages = {"com.kali.aop.aspectj.fullannotation"})
+@EnableAspectJAutoProxy(proxyTargetClass = true) //相当于 <aop:before method="before" pointcut-ref="p"></aop:before>
+public class CnfScanner {
+}
+
+```
+
+
+
 # JdbcTemplate
 
 # 事务管理
